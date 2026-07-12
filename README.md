@@ -272,7 +272,7 @@ docker run --name new-api -d --restart always \
 | 🔧 Dify | ChatFlow mode | - |
 | 🎯 Custom upstream | Supports configuring legally authorized upstream endpoints | - |
 
-### 📡 Supported Interfaces
+### 📡 Supported Interface...
 
 <details>
 <summary>View complete interface list</summary>

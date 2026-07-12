@@ -2,8 +2,8 @@ packages:
   - 'default'
   - 'classic'
 
-onlyBuiltDependencies:
-  - '@swc/core'
+allowBuilds:
+  '@swc/core': true
 
 catalog:
   '@lobehub/icons': '^5.10.1'

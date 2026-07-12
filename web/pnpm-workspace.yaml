@@ -2,9 +2,6 @@ packages:
   - 'default'
   - 'classic'
 
-onlyBuiltDependencies:
-  - '@swc/core'
-
 catalog:
   '@lobehub/icons': '^5.10.1'
   '@rsbuild/core': '^2.1.4'

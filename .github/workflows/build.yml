@@ -1,8 +1,6 @@
 name: Cloud Build
-
 on:
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,22 +16,43 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@latest
 
+      - name: Create pnpm-workspace.yaml
+        run: |
+          cat > web/pnpm-workspace.yaml << 'EOF'
+          packages:
+            - 'default'
+            - 'classic'
+
+          catalog:
+            '@lobehub/icons': '^5.10.1'
+            '@rsbuild/core': '^2.1.4'
+            '@rsbuild/plugin-react': '^2.1.0'
+            '@rsbuild/plugin-tailwindcss': '^2.0.3'
+            axios: '^1.18.1'
+            clsx: '^2.1.1'
+            dayjs: '^1.11.21'
+            oxfmt: '^0.57.0'
+            oxlint: '^1.72.0'
+            prettier: '^3.8.3'
+            qrcode.react: '^4.2.0'
+            react: '^19.2.7'
+            react-dom: '^19.2.7'
+            react-icons: '^5.7.0'
+            react-markdown: '^10.1.0'
+            remark-gfm: '^4.0.1'
+            sse.js: '^2.8.0'
+          EOF
+
       - name: Build Frontends
         run: |
-          # 1. 准确进入前端工作区根目录
           cd web
-          
-          # 2. 读取工作区配置，统一下载并解析 catalog 依赖
-          pnpm install
-          
-          # 3. 递归（-r）构建所有声明在 workspace 里的子前端项目
+          pnpm install --no-frozen-lockfile
           pnpm -r run build
 
       - name: Commit and Push
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          # 强制添加所有子目录下的 dist 编译结果
           git add web/*/dist -f
           git commit -m "Auto-build frontend dist folders with pnpm workspace" || true
           git push

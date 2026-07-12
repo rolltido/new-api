@@ -20,10 +20,13 @@ jobs:
 
       - name: Build Frontends
         run: |
+          # 关键点：先在最外层根目录统一下载并识别 catalog 依赖
+          pnpm install
+          
+          # 然后再进入各个 web 文件夹里去执行打包
           for dir in web/*; do
             if [ -d "$dir" ] && [ -f "$dir/package.json" ]; then
               cd "$dir"
-              pnpm install
               pnpm run build
               cd ../..
             fi

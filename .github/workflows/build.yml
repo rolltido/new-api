@@ -13,15 +13,18 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
+
+      - name: Install pnpm
+        run: npm install -g pnpm@latest
 
       - name: Build Frontends
         run: |
           for dir in web/*; do
             if [ -d "$dir" ] && [ -f "$dir/package.json" ]; then
               cd "$dir"
-              npm install
-              npm run build
+              pnpm install
+              pnpm run build
               cd ../..
             fi
           done
@@ -31,5 +34,5 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git add web/*/dist -f
-          git commit -m "Auto-build frontend dist folders" || true
+          git commit -m "Auto-build frontend dist folders with pnpm" || true
           git push

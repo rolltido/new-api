@@ -1,0 +1,35 @@
+name: Cloud Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Build Frontends
+        run: |
+          for dir in web/*; do
+            if [ -d "$dir" ] && [ -f "$dir/package.json" ]; then
+              cd "$dir"
+              npm install
+              npm run build
+              cd ../..
+            fi
+          done
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add web/*/dist -f
+          git commit -m "Auto-build frontend dist folders" || true
+          git push

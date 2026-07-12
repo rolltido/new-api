@@ -1,0 +1,1 @@
+"use strict";(self.rspackChunkreact_template=self.rspackChunkreact_template||[]).push([[7862],{9877(e,t,a){var c=a(92371);a(50661),a.d(t,{createPacketServices:()=>c.$})}}]);

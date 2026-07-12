@@ -1,0 +1,1 @@
+"use strict";(self.rspackChunkreact_template=self.rspackChunkreact_template||[]).push([[4972],{54919(e,t,a){var r=a(69523);a(50661),a.d(t,{createEventModelingServices:()=>r.g})}}]);
